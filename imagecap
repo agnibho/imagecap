@@ -1,0 +1,37 @@
+#! /bin/bash
+
+#=========================================================
+# Wrapper script for feh image viewer with comment support
+#=========================================================
+
+SELF="$(realpath "$0")";
+EDIT="gvim -f";
+ARG="$(echo $1 | sed "s/^file:\/\///g")";
+DIR="$(dirname "$ARG")";
+if [ -n "$ARG" ];then
+	#IMG="$(feh -U "$DIR"|grep "$ARG$")";
+	IMG="$DIR/$(basename "$ARG")";
+fi
+
+function update(){
+	TEMP=$(mktemp);
+	exiftool -S -s -b -comment "$1">$TEMP;
+	ls -l $TEMP;
+	$EDIT $TEMP;
+	exiftool -overwrite_original_in_place "-comment<=$TEMP" "$1";
+	rm $TEMP;
+}
+
+function view(){
+	if [ -n "$IMG" ];then
+		feh -q --action1 ";$SELF e '%f'" --info "exiftool -S -s -b -comment '%f'" --scale-down --draw-tinted --start-at "$IMG" "$DIR";
+	else
+		feh -q --action1 ";$SELF e '%f'" --info "exiftool -S -s -b -comment '%f'" --scale-down --draw-tinted "$DIR";
+	fi
+}
+
+if [ "$1" == "e" ];then
+	update "$2";
+else
+	view "$1";
+fi
