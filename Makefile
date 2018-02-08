@@ -5,6 +5,7 @@ exec_prefix = $(prefix)
 bindir = $(exec_prefix)/bin
 
 INSTALL = install -vb
+INSTALL_DIR = $(INSTALL) -d
 INSTALL_PROGRAM = $(INSTALL) -m 755
 
 all:
@@ -12,6 +13,7 @@ all:
 	@echo "Run 'make uninstall' for uninstallation."
 
 install:
+	$(INSTALL_DIR) $(DESTDIR)$(bindir)
 	$(INSTALL_PROGRAM) imagecap $(DESTDIR)$(bindir)
 
 uninstall:
