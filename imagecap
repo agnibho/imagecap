@@ -22,11 +22,16 @@
 # www.agnibho.com
 
 SELF="$(realpath "$0")";
-EDIT="gvim -f";
+if [ "$VISUAL" ];then
+	EDIT="$VISUAL";
+elif [ "$EDITOR" ];then
+	EDIT="$EDITOR";
+else
+	EDIT="vi";
+fi
 ARG="$(echo $1 | sed "s/^file:\/\///g")";
 DIR="$(dirname "$ARG")";
 if [ -n "$ARG" ];then
-	#IMG="$(feh -U "$DIR"|grep "$ARG$")";
 	IMG="$DIR/$(basename "$ARG")";
 fi
 
