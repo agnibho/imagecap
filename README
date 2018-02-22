@@ -14,6 +14,11 @@ Downloading
 
 Latest release of ImageCap can be downloaded from http://code.agnibho.com/imagecap/
 
+Dependencies
+------------
+
+ImageCap depends on: bash, coreutils, sed, exiftool, feh, xdg-open.
+
 Installation
 ------------
 
