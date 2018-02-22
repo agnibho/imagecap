@@ -22,8 +22,11 @@ ImageCap depends on: bash, coreutils, sed, exiftool, feh, xdg-open.
 Installation
 ------------
 
-Download the script and place it in your path. Alternatively you can place it
-anywhere and create an alias instead.
+Make sure you have all the dependencies installed in your system.
+
+Run 'make install' to install the program to your system. You may need to be
+superuser to do this. If you wish to uninstall the program you can do so by
+running 'make uninstall'.
 
 Usage
 -----
