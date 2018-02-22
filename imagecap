@@ -22,13 +22,6 @@
 # www.agnibho.com
 
 SELF="$(realpath "$0")";
-if [ "$VISUAL" ];then
-	EDIT="$VISUAL";
-elif [ "$EDITOR" ];then
-	EDIT="$EDITOR";
-else
-	EDIT="vi";
-fi
 ARG="$(echo $1 | sed "s/^file:\/\///g")";
 DIR="$(dirname "$ARG")";
 if [ -n "$ARG" ];then
@@ -39,7 +32,7 @@ function update(){
 	TEMP=$(mktemp);
 	exiftool -S -s -b -comment "$1">$TEMP;
 	ls -l $TEMP;
-	$EDIT $TEMP;
+	xdg-open $TEMP;
 	exiftool -overwrite_original_in_place "-comment<=$TEMP" "$1";
 	rm $TEMP;
 }
