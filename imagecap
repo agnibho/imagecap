@@ -29,12 +29,11 @@ if [ -n "$ARG" ];then
 fi
 
 function update(){
-	TEMP=$(mktemp);
-	exiftool -S -s -b -comment "$1">$TEMP;
-	ls -l $TEMP;
-	xdg-open $TEMP;
-	exiftool -overwrite_original_in_place "-comment<=$TEMP" "$1";
-	rm $TEMP;
+	DATA=$(exiftool -S -s -b -comment "$1");
+	DATA=$(echo -n "$DATA"|zenity --text-info --editable --title="Edit Caption" --ok-label="Update");
+	if [ "$?" = "0" ];then
+		exiftool -overwrite_original_in_place -comment="$DATA" "$1";
+	fi
 }
 
 function view(){
